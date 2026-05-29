@@ -45,7 +45,16 @@
     pointer-events: none;
     user-select: none;
     z-index: 0;
+    fill: currentColor;
   }
+  /* Make every shape inside a .deco actually use the inherited color
+     (the previous version was rendering everything black because path
+     elements default fill to black when no fill attribute is given) */
+  .deco path,
+  .deco use,
+  .deco circle { fill: currentColor; }
+  /* The ring shape is meant to be a stroked outline, not a filled disc */
+  .deco circle[fill="none"] { fill: none; stroke: currentColor; }
   .deco.float {
     animation: floaty 8s ease-in-out infinite;
   }
@@ -587,8 +596,10 @@
     }
     footer .small { font-size: 11px; padding: 0 16px; line-height: 1.6; }
 
-    /* Decorative SVGs — scaled down so they don't crowd */
-    .deco { transform: scale(0.62); transform-origin: center; }
+    /* Decorative SVGs — hidden entirely on phone.
+       They use percentage positioning which lands them on top of the hero
+       text on narrow viewports. Desktop keeps them. */
+    .deco { display: none !important; }
   }
 
   /* Very small phones */
