@@ -431,27 +431,65 @@
     position: fixed; inset: 0; pointer-events: none; z-index: 100;
   }
 
+  /* ---- Mobile share CTA (hidden on desktop, shown on phone) ---- */
+  .share-cta {
+    display: none;
+    text-align: center;
+    padding: 30px 24px 10px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .share-cta h3 {
+    font-family: "Fraunces", serif; font-weight: 800;
+    font-size: 24px; margin-bottom: 8px; color: var(--paper);
+  }
+  .share-cta p {
+    font-size: 14px; color: rgba(250,246,238,0.7); margin-bottom: 18px;
+  }
+  .share-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px;
+    background: var(--coral); color: var(--paper);
+    font-family: "Inter", sans-serif; font-weight: 600; font-size: 15px;
+    padding: 14px 26px; border-radius: 999px;
+    border: 0; cursor: pointer;
+    min-height: 48px;
+    transition: transform .18s ease, background .18s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .share-btn:hover  { background: #d8623f; }
+  .share-btn:active { transform: scale(0.96); }
+  .share-btn svg    { width: 18px; height: 18px; fill: currentColor; }
+  .share-btn .copied {
+    display: none;
+  }
+  .share-btn.is-copied .label   { display: none; }
+  .share-btn.is-copied .copied  { display: inline; }
+
   /* ============================================================
-     MOBILE / PHONE OPTIMISATIONS
+     MOBILE-FIRST OPTIMISATIONS  (phone is the primary canvas)
      ============================================================ */
   @media (max-width: 720px) {
 
-    /* Section spacing — tighter on phones */
-    section { padding: 64px 0; }
-    section.tight { padding: 48px 0; }
+    /* Section spacing — tighter on phones, more thumb-room around content */
+    section { padding: 60px 0; }
+    section.tight { padding: 44px 0; }
     .container { padding: 0 20px; }
 
-    /* Nav pill */
-    .nav { left: 10px; right: 10px; padding: 9px 14px; gap: 8px; }
+    /* Nav pill — small but touchable */
+    .nav {
+      left: 10px; right: 10px; top: 12px;
+      padding: 10px 14px; gap: 8px; min-height: 44px;
+    }
     .nav .brand { font-size: 13px; gap: 8px; }
-    .nav .brand .full { display: none; }     /* full string hidden on phone */
-    .nav .brand .short { display: inline; }  /* compact label shown */
+    .nav .brand .full  { display: none; }
+    .nav .brand .short { display: inline; }
     .nav ul { display: none; }
 
-    /* Hero */
-    .hero { padding: 110px 0 50px; min-height: auto; }
-    .hero .eyebrow { font-size: 11px; padding: 7px 14px; letter-spacing: .12em; }
-    .hero h1 { font-size: clamp(48px, 13vw, 70px); margin: 22px 0 18px; line-height: .95; }
+    /* Hero — punchier on phone, polaroid-style emphasis */
+    .hero { padding: 100px 0 40px; min-height: auto; }
+    .hero .eyebrow { font-size: 11px; padding: 8px 14px; letter-spacing: .12em; min-height: 34px; }
+    .hero h1 { font-size: clamp(52px, 14vw, 76px); margin: 24px 0 18px; line-height: .95; }
     .hero .sub { font-size: 16px; margin-bottom: 28px; padding: 0 8px; line-height: 1.55; }
 
     /* Stack the hero meta pill into three lines */
@@ -459,9 +497,9 @@
       flex-direction: column; gap: 6px;
       padding: 14px 22px;
       font-size: 13px; border-radius: 22px;
-      text-align: center;
+      text-align: center; min-height: 44px;
     }
-    .hero .meta > span:nth-child(even) { display: none; }  /* hide bullet dividers */
+    .hero .meta > span:nth-child(even) { display: none; }
 
     .scroll-cue { font-size: 10px; bottom: 18px; }
 
@@ -470,15 +508,15 @@
     .h-sub { font-size: 15px; }
 
     /* Story */
-    .story .row { gap: 36px; }
+    .story .row { gap: 32px; }
     .story-card { padding: 26px 22px; border-radius: 18px; }
-    .story-card .tape { left: 22px; padding: 5px 14px; font-size: 11px; }
+    .story-card .tape { left: 22px; padding: 6px 14px; font-size: 11px; }
 
-    /* Stats — keep 2 columns but tighten */
-    .stats .grid { gap: 14px; margin-top: 28px; }
-    .stat { padding: 22px 18px; border-radius: 18px; }
-    .stat .num { font-size: clamp(40px, 11vw, 60px); }
-    .stat .lbl { font-size: 13px; line-height: 1.4; }
+    /* Stats — 2 columns, tighter padding, but numbers stay punchy */
+    .stats .grid { gap: 12px; margin-top: 24px; }
+    .stat { padding: 22px 16px; border-radius: 18px; }
+    .stat .num { font-size: clamp(42px, 12vw, 62px); }
+    .stat .lbl { font-size: 13px; line-height: 1.4; margin-top: 10px; }
 
     /* Marquee */
     .marquee { padding: 18px 0; }
@@ -486,56 +524,71 @@
     .marquee .track span { gap: 36px; }
     .marquee .track i { width: 10px; height: 10px; }
 
-    /* Projects */
-    .projects .grid { gap: 16px; margin-top: 28px; }
-    .proj { padding: 24px 22px; border-radius: 18px; }
+    /* Projects — full-width, generous padding, bigger tap target on the link */
+    .projects .grid { gap: 14px; margin-top: 28px; }
+    .proj { padding: 26px 22px; border-radius: 20px; }
     .proj h3 { font-size: 24px; line-height: 1.15; }
-    .proj .lede { font-size: 15px; }
-    .proj .verb { font-size: 10px; padding: 5px 12px; letter-spacing: .2em; }
+    .proj .lede { font-size: 15px; line-height: 1.6; }
+    .proj .verb { font-size: 10px; padding: 6px 12px; letter-spacing: .22em; min-height: 26px; display: inline-flex; align-items: center; }
+    .proj .chips { gap: 6px; margin-bottom: 16px; }
+    .proj .chip { font-size: 11px; padding: 5px 11px; }
+    .proj .link { font-size: 14px; padding: 10px 0; min-height: 44px; display: inline-flex; align-items: center; }
 
-    /* Stack tag-cloud */
+    /* Stack tag-cloud — touch-friendly */
     .stack .tag-cloud { gap: 8px; margin-top: 22px; }
-    .stack .tag-cloud span { font-size: 13px; padding: 8px 14px; }
+    .stack .tag-cloud span { font-size: 13px; padding: 10px 16px; min-height: 38px; display: inline-flex; align-items: center; }
 
     /* Moments */
     .moments .grid { gap: 14px; margin-top: 28px; }
-    .moment { padding: 24px 22px; border-radius: 18px; }
-    .moment p { font-size: 18px; line-height: 1.4; }
+    .moment { padding: 26px 22px; border-radius: 20px; }
+    .moment p { font-size: 18px; line-height: 1.45; }
     .moment .qmark { font-size: 56px; }
     .moment .by { font-size: 12px; }
 
-    /* Crew polaroid */
-    .crew .row { gap: 36px; }
-    .polaroid { transform: rotate(-2deg); max-width: 320px; padding: 16px 16px 46px; }
+    /* Crew — polaroid is the visual centerpiece on phones */
+    .crew { padding: 56px 0; }
+    .crew .row { gap: 30px; }
+    .polaroid {
+      transform: rotate(-2deg);
+      max-width: 320px;
+      padding: 16px 16px 50px;
+      margin: 0 auto;
+    }
     .polaroid::before { width: 110px; height: 22px; top: -16px; }
-    .polaroid .label { font-size: 22px; margin-top: 12px; }
+    .polaroid .label { font-size: 24px; margin-top: 14px; }
 
-    /* Thanks cards */
-    .thanks-grid { gap: 14px; margin-top: 28px; }
-    .ty { padding: 24px 22px; border-radius: 18px; }
+    /* Thanks cards — readable padding, generous tap zone */
+    .thanks-grid { gap: 12px; margin-top: 28px; }
+    .ty { padding: 26px 22px; border-radius: 20px; }
     .ty .name { font-size: 22px; }
     .ty .role { font-size: 11px; margin-bottom: 12px; }
-    .ty p { font-size: 14px; line-height: 1.6; }
-    /* Override inline-styled bigger names in the special-thanks & honest-note cards */
+    .ty p { font-size: 14.5px; line-height: 1.65; }
+    .ty .link { font-size: 14px; padding: 12px 0 0; min-height: 44px; display: inline-flex; align-items: center; }
     .thanks .ty .name[style] { font-size: 22px !important; }
 
     /* Closing */
-    .closing { padding: 90px 0; }
-    .closing h2 { font-size: clamp(48px, 13vw, 70px); }
-    .closing .signature { font-size: 48px; margin-top: 28px; }
+    .closing { padding: 80px 0; }
+    .closing h2 { font-size: clamp(48px, 13vw, 72px); }
+    .closing .signature { font-size: 48px; margin-top: 24px; }
     .closing .sub { font-size: 15px; padding: 0 8px; }
 
-    /* Footer */
-    footer { padding: 40px 0 28px; }
+    /* Share button section (mobile-only CTA at the bottom) */
+    .share-cta { display: block !important; }
+
+    /* Footer — touch-friendly link pills */
+    footer { padding: 38px 0 28px; }
     footer .links {
       display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
       padding: 0 16px; margin-bottom: 18px;
     }
-    footer .links a { font-size: 13px; padding: 8px 14px; }
+    footer .links a {
+      font-size: 14px; padding: 12px 18px;
+      min-height: 44px; display: inline-flex; align-items: center;
+    }
     footer .small { font-size: 11px; padding: 0 16px; line-height: 1.6; }
 
-    /* Decorative SVGs — scale down so they don't crowd small viewports */
-    .deco { transform: scale(0.65); transform-origin: center; }
+    /* Decorative SVGs — scaled down so they don't crowd */
+    .deco { transform: scale(0.62); transform-origin: center; }
   }
 
   /* Very small phones */
@@ -553,8 +606,7 @@
     .closing .signature { font-size: 42px; }
   }
 
-  /* Touch devices: disable sticky hover states (otherwise transforms stay
-     stuck after a tap and look broken on phones) */
+  /* Touch devices: disable sticky hover states + add proper tap feedback */
   @media (hover: none) {
     .proj:hover {
       transform: none;
@@ -571,6 +623,42 @@
     .polaroid:hover { transform: rotate(-3deg); }
     .nav ul a:hover { color: var(--ink-soft); }
     footer .links a:hover { background: transparent; color: var(--paper); border-color: rgba(255,255,255,0.16); }
+
+    /* Visible tap feedback — fires on actual touch, releases on lift */
+    .proj:active {
+      transform: scale(0.98);
+      transition: transform .12s ease;
+    }
+    .ty:active {
+      transform: scale(0.98);
+      transition: transform .12s ease;
+    }
+    .moment:active {
+      transform: scale(0.98);
+      transition: transform .12s ease;
+    }
+    .stat:active {
+      transform: scale(0.98);
+      transition: transform .12s ease;
+    }
+    .stack .tag-cloud span:active {
+      background: var(--ink); color: var(--paper); border-color: var(--ink);
+      transform: scale(0.95);
+      transition: all .12s ease;
+    }
+    footer .links a:active,
+    .nav .brand:active,
+    .proj .link:active,
+    .ty .link:active {
+      transform: scale(0.96);
+      transition: transform .12s ease;
+    }
+    .polaroid:active { transform: rotate(-2deg) scale(0.98); transition: transform .15s ease; }
+  }
+
+  /* Remove iOS tap-highlight blue flash everywhere */
+  a, button, .proj, .ty, .moment, .stat, .polaroid {
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Honour user preference for reduced motion */
@@ -1004,6 +1092,7 @@
       <div class="reveal delay-2">
         <div class="polaroid">
           <img src="team.jpg" alt="The P.A.I.R team"
+               loading="lazy" decoding="async"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
           <div class="placeholder" style="display:none;">
             Save the team photo as<br/><strong>team.jpg</strong><br/>
@@ -1157,6 +1246,19 @@
   </div>
 </section>
 
+<!-- ========= MOBILE SHARE CTA ========= -->
+<div class="share-cta">
+  <h3>Pass it on</h3>
+  <p>Know someone who would smile at this?</p>
+  <button class="share-btn" id="shareBtn" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+    </svg>
+    <span class="label">Share this farewell</span>
+    <span class="copied">Link copied ✓</span>
+  </button>
+</div>
+
 <!-- ========= FOOTER ========= -->
 <footer>
   <div class="container">
@@ -1219,6 +1321,28 @@
     lastY = y;
   });
 
+  // ---------- Native share button (mobile-prominent) ----------
+  (() => {
+    const btn = document.getElementById('shareBtn');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const data = {
+        title: "Hari S — A Farewell from Param",
+        text:  "Four months at Param Foundation's P.A.I.R Lab — a quick farewell.",
+        url:   location.href,
+      };
+      try {
+        if (navigator.share) {
+          await navigator.share(data);
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(location.href);
+          btn.classList.add('is-copied');
+          setTimeout(() => btn.classList.remove('is-copied'), 2400);
+        }
+      } catch (e) { /* user cancelled — silently ignore */ }
+    });
+  })();
+
   // ---------- Confetti on load ----------
   (() => {
     const cv = document.getElementById('confetti');
@@ -1229,7 +1353,8 @@
     window.addEventListener('resize', resize);
 
     const colors = ['#E76F51','#E9C46A','#8B5CF6','#2A9D8F','#F4A5BE','#6CC2E5'];
-    const N = 120;
+    // Reduce confetti density on small screens for performance
+    const N = innerWidth < 720 ? 70 : 120;
     const parts = Array.from({length: N}, () => spawn());
 
     function spawn() {
