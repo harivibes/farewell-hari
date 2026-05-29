@@ -1340,14 +1340,21 @@
   document.querySelectorAll('.count').forEach(el => counterIO.observe(el));
 
   // ---------- Nav hide on scroll down, show on scroll up ----------
+  // On mobile the nav pill is hidden while at the very top of the page
+  // (so it doesn't stack against the hero's eyebrow pill). It slides in
+  // when you scroll back up. Desktop keeps showing it at the top.
   let lastY = 0;
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
+  const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
+  function updateNav() {
     const y = window.scrollY;
-    if (y > 100 && y > lastY + 8)      nav.style.transform = 'translateY(-140%)';
-    else if (y < lastY - 4 || y < 100) nav.style.transform = 'translateY(0)';
+    if (isMobile() && y < 80)          nav.style.transform = 'translateY(-140%)';
+    else if (y > 100 && y > lastY + 8) nav.style.transform = 'translateY(-140%)';
+    else if (y < lastY - 4 || (!isMobile() && y < 100)) nav.style.transform = 'translateY(0)';
     lastY = y;
-  });
+  }
+  window.addEventListener('scroll', updateNav);
+  updateNav();
 
   // ---------- Native share button (mobile-prominent) ----------
   (() => {
