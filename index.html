@@ -431,6 +431,156 @@
     position: fixed; inset: 0; pointer-events: none; z-index: 100;
   }
 
+  /* ============================================================
+     MOBILE / PHONE OPTIMISATIONS
+     ============================================================ */
+  @media (max-width: 720px) {
+
+    /* Section spacing — tighter on phones */
+    section { padding: 64px 0; }
+    section.tight { padding: 48px 0; }
+    .container { padding: 0 20px; }
+
+    /* Nav pill */
+    .nav { left: 10px; right: 10px; padding: 9px 14px; gap: 8px; }
+    .nav .brand { font-size: 13px; gap: 8px; }
+    .nav .brand .full { display: none; }     /* full string hidden on phone */
+    .nav .brand .short { display: inline; }  /* compact label shown */
+    .nav ul { display: none; }
+
+    /* Hero */
+    .hero { padding: 110px 0 50px; min-height: auto; }
+    .hero .eyebrow { font-size: 11px; padding: 7px 14px; letter-spacing: .12em; }
+    .hero h1 { font-size: clamp(48px, 13vw, 70px); margin: 22px 0 18px; line-height: .95; }
+    .hero .sub { font-size: 16px; margin-bottom: 28px; padding: 0 8px; line-height: 1.55; }
+
+    /* Stack the hero meta pill into three lines */
+    .hero .meta {
+      flex-direction: column; gap: 6px;
+      padding: 14px 22px;
+      font-size: 13px; border-radius: 22px;
+      text-align: center;
+    }
+    .hero .meta > span:nth-child(even) { display: none; }  /* hide bullet dividers */
+
+    .scroll-cue { font-size: 10px; bottom: 18px; }
+
+    /* Section headings */
+    .h-display { font-size: clamp(34px, 9vw, 56px); }
+    .h-sub { font-size: 15px; }
+
+    /* Story */
+    .story .row { gap: 36px; }
+    .story-card { padding: 26px 22px; border-radius: 18px; }
+    .story-card .tape { left: 22px; padding: 5px 14px; font-size: 11px; }
+
+    /* Stats — keep 2 columns but tighten */
+    .stats .grid { gap: 14px; margin-top: 28px; }
+    .stat { padding: 22px 18px; border-radius: 18px; }
+    .stat .num { font-size: clamp(40px, 11vw, 60px); }
+    .stat .lbl { font-size: 13px; line-height: 1.4; }
+
+    /* Marquee */
+    .marquee { padding: 18px 0; }
+    .marquee .track { font-size: 24px; gap: 36px; }
+    .marquee .track span { gap: 36px; }
+    .marquee .track i { width: 10px; height: 10px; }
+
+    /* Projects */
+    .projects .grid { gap: 16px; margin-top: 28px; }
+    .proj { padding: 24px 22px; border-radius: 18px; }
+    .proj h3 { font-size: 24px; line-height: 1.15; }
+    .proj .lede { font-size: 15px; }
+    .proj .verb { font-size: 10px; padding: 5px 12px; letter-spacing: .2em; }
+
+    /* Stack tag-cloud */
+    .stack .tag-cloud { gap: 8px; margin-top: 22px; }
+    .stack .tag-cloud span { font-size: 13px; padding: 8px 14px; }
+
+    /* Moments */
+    .moments .grid { gap: 14px; margin-top: 28px; }
+    .moment { padding: 24px 22px; border-radius: 18px; }
+    .moment p { font-size: 18px; line-height: 1.4; }
+    .moment .qmark { font-size: 56px; }
+    .moment .by { font-size: 12px; }
+
+    /* Crew polaroid */
+    .crew .row { gap: 36px; }
+    .polaroid { transform: rotate(-2deg); max-width: 320px; padding: 16px 16px 46px; }
+    .polaroid::before { width: 110px; height: 22px; top: -16px; }
+    .polaroid .label { font-size: 22px; margin-top: 12px; }
+
+    /* Thanks cards */
+    .thanks-grid { gap: 14px; margin-top: 28px; }
+    .ty { padding: 24px 22px; border-radius: 18px; }
+    .ty .name { font-size: 22px; }
+    .ty .role { font-size: 11px; margin-bottom: 12px; }
+    .ty p { font-size: 14px; line-height: 1.6; }
+    /* Override inline-styled bigger names in the special-thanks & honest-note cards */
+    .thanks .ty .name[style] { font-size: 22px !important; }
+
+    /* Closing */
+    .closing { padding: 90px 0; }
+    .closing h2 { font-size: clamp(48px, 13vw, 70px); }
+    .closing .signature { font-size: 48px; margin-top: 28px; }
+    .closing .sub { font-size: 15px; padding: 0 8px; }
+
+    /* Footer */
+    footer { padding: 40px 0 28px; }
+    footer .links {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      padding: 0 16px; margin-bottom: 18px;
+    }
+    footer .links a { font-size: 13px; padding: 8px 14px; }
+    footer .small { font-size: 11px; padding: 0 16px; line-height: 1.6; }
+
+    /* Decorative SVGs — scale down so they don't crowd small viewports */
+    .deco { transform: scale(0.65); transform-origin: center; }
+  }
+
+  /* Very small phones */
+  @media (max-width: 400px) {
+    .container { padding: 0 16px; }
+    .hero h1 { font-size: 44px; }
+    .h-display { font-size: 30px; }
+    .marquee .track { font-size: 20px; gap: 28px; }
+    .marquee .track span { gap: 28px; }
+    .stat .num { font-size: 38px; }
+    .proj { padding: 22px 18px; }
+    .proj h3 { font-size: 22px; }
+    .moment p { font-size: 17px; }
+    .polaroid { max-width: 280px; }
+    .closing .signature { font-size: 42px; }
+  }
+
+  /* Touch devices: disable sticky hover states (otherwise transforms stay
+     stuck after a tap and look broken on phones) */
+  @media (hover: none) {
+    .proj:hover {
+      transform: none;
+      box-shadow: 0 6px 22px rgba(31,42,68,0.06);
+      border-color: var(--line);
+    }
+    .proj:hover .blob { opacity: 0; }
+    .ty:hover {
+      transform: none; box-shadow: none; border-color: var(--line);
+    }
+    .stack .tag-cloud span:hover {
+      background: var(--bg); color: var(--ink); border-color: var(--line); transform: none;
+    }
+    .polaroid:hover { transform: rotate(-3deg); }
+    .nav ul a:hover { color: var(--ink-soft); }
+    footer .links a:hover { background: transparent; color: var(--paper); border-color: rgba(255,255,255,0.16); }
+  }
+
+  /* Honour user preference for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .deco.float, .deco.spin-slow, .marquee .track,
+    .nav .brand .dot, .scroll-cue { animation: none !important; }
+    .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
   /* ---- Team polaroid section ---- */
   .crew { background: var(--bg-dim); position: relative; overflow: hidden; }
   .crew .row {
@@ -510,7 +660,8 @@
 <nav class="nav" id="nav">
   <div class="brand">
     <span class="dot"></span>
-    <span>Hari S  ·  Param P.A.I.R Lab  ·  2026</span>
+    <span class="full">Hari S  ·  Param P.A.I.R Lab  ·  2026</span>
+    <span class="short" style="display:none;">Hari S  ·  P.A.I.R  ·  2026</span>
   </div>
   <ul>
     <li><a href="#story">Story</a></li>
@@ -945,12 +1096,13 @@
       <div class="ty" style="background: linear-gradient(135deg, var(--mustard) 0%, #F4D67E 100%); border-color: var(--mustard); border-width: 2px;">
         <div class="role" style="color: var(--ink);">Special thanks</div>
         <div class="name" style="font-size: 28px; margin-bottom: 12px;">
-          Inavamsi Enaganti  ·  Ganesh Prasad
+          Inavamsi Enaganti  ·  Ganesh Prasad  ·  Shammi Raj Balla
         </div>
         <p style="color: var(--ink); font-size: 16px;">
-          To the CEO, Inavamsi Enaganti, and to Ganesh Prasad — for abstracting away the
-          complexity so the rest of us could just build, and for putting the best resources
-          an intern could ask for within reach. The room to innovate started with you.
+          To the leadership — Inavamsi Enaganti, Ganesh Prasad, and Shammi Raj Balla — for
+          abstracting away the complexity so the rest of us could just build, and for putting
+          the best resources an intern could ask for within reach. The room to innovate
+          started with you.
         </p>
       </div>
     </div>
