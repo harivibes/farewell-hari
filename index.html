@@ -597,10 +597,26 @@
     }
     footer .small { font-size: 11px; padding: 0 16px; line-height: 1.6; }
 
-    /* Decorative SVGs — hidden entirely on phone.
-       They use percentage positioning which lands them on top of the hero
-       text on narrow viewports. Desktop keeps them. */
-    .deco { display: none !important; }
+    /* Decorative SVGs — KEPT on phone, just smaller and tucked into the
+       margins/corners so they fill the empty space around the centered
+       text instead of crowding it. (They sit behind the text via z-index.) */
+
+    /* Hero shapes — pinned to the four corners + side edges, scaled down.
+       !important is needed throughout because positions are set inline. */
+    .hero .deco:nth-of-type(1) { top: 8% !important;  left: 1% !important;  right: auto !important; bottom: auto !important; width: 50px !important; } /* mustard sparkle */
+    .hero .deco:nth-of-type(2) { top: 6% !important;  right: 1% !important; left: auto !important;  bottom: auto !important; width: 42px !important; } /* purple sparkle */
+    .hero .deco:nth-of-type(3) { bottom: 16% !important; left: 2% !important; right: auto !important; top: auto !important; width: 38px !important; } /* coral sparkle */
+    .hero .deco:nth-of-type(4) { top: 12% !important; right: 3% !important; left: auto !important;  bottom: auto !important; width: 42px !important; } /* teal ring */
+    .hero .deco:nth-of-type(5) { bottom: 7% !important; right: -2% !important; left: auto !important; top: auto !important; width: 78px !important; } /* pink blob */
+    .hero .deco:nth-of-type(6) { bottom: 5% !important; left: -2% !important; right: auto !important; top: auto !important; width: 70px !important; } /* sky blob */
+
+    /* Section decos — keep, but shrink so they read as accents, not clutter */
+    .story  .deco   { width: 46px !important; }
+    .projects .deco { width: 44px !important; }
+    .moments .deco  { width: 40px !important; }
+    .crew   .deco   { width: 40px !important; }
+    .thanks .deco   { width: 44px !important; }
+    .closing .deco  { width: 38px !important; }
   }
 
   /* Very small phones */
